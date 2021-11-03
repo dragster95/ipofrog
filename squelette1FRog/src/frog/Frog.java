@@ -8,4 +8,4 @@ public class Frog implements IFrog {
 	private Game game;
 
 
-}GROSSE BITE LE RETOUR
+}
