@@ -8,8 +8,5 @@ public class Frog implements IFrog {
 	
 	private Game game;
 
-	@Override
-	public void move(Direction key) {
-
 	}
 }
