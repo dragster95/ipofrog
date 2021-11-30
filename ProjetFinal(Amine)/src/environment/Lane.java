@@ -2,6 +2,7 @@ package environment;
 
 import java.util.ArrayList;
 
+import gameCommons.IEnvironment;
 import util.Case;
 import environment.Environment;
 import gameCommons.Game;
@@ -10,10 +11,10 @@ public class Lane {
 	private Game game;
 	private int ord;
 	private int speed;
-	private ArrayList<Car> cars = new ArrayList<>();
+	private ArrayList<Car> cars ;
 	private boolean leftToRight;
 	private double density;
-	private int timer;
+	private int timer = 0;
 
 	// TODO : Constructeur(s)
 	public Lane(Game game, int ord, boolean leftToRight){
@@ -40,11 +41,13 @@ public class Lane {
 		// elle ne bougent pas
 
 		// A chaque tic d'horloge, une voiture peut �tre ajout�e
-
-
-
-
-
+		timer++;
+		if(timer > speed) {
+			mayAddCar();
+			moveCarsonLane();
+			removeCars();
+			timer = 0;
+		}
 	}
 
 	// TODO : ajout de methodes
@@ -65,7 +68,32 @@ public class Lane {
 		}
 	}
 
+	/* Bouge chaque de l'array cars */
+	public void moveCarsonLane() {
+		for (int i = 0; i < cars.size(); i++ ) {
+			cars.get(i).move();
+		}
+	}
+
+	/* Vérifie case chaque voiture est vide */
+	public boolean isSafe(Case c) {
+		for (int i = 0; i < cars.size(); i++) {
+			if (cars.get(i).PositionCarEmpty(c) != true) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/* retire voiture si fini trajet*/
 	private void removeCars(){
+		for(int i = 0; i < cars.size(); i++){
+			if(cars.get(i).getDirection() == true && cars.get(i).getLeftPosition() == new Case(game.width , ord) ){
+				cars.remove(i);
+			}else if (cars.get(i).getDirection() == false && cars.get(i).getLeftPosition() == new Case(-1, ord)){
+				cars.remove(i);
+			}
+		}
 
 	}
 

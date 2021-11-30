@@ -15,7 +15,7 @@ public class Car {
 	private final Color colorRtL = Color.BLUE;
 
 	//TODO Constructeur(s)
-	public Car(Game game,Case leftPosition, boolean leftToRight, int length ){
+	public Car(Game game,Case leftPosition, boolean leftToRight){
 		this.game= game;
 		this.leftPosition= leftPosition;
 		this.leftToRight=leftToRight;
@@ -27,6 +27,14 @@ public class Car {
 	
 	//TODO : ajout de methodes
 
+	/* Bouge la voiure */
+	public void move(){
+		if(leftToRight == true ){
+			leftPosition = new Case(leftPosition.absc - 1, leftPosition.ord) ;
+		}else{
+			leftPosition = new Case(leftPosition.absc + 1, leftPosition.ord) ;
+		}
+	}
 	
 	
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
@@ -42,9 +50,18 @@ public class Car {
 	}
 
 	/* Nous dis si Car partage la case d'une case donnée */
-	public boolean PositionCarFrog(Case c) {
+	public boolean PositionCarEmpty(Case c) {
 		return c != this.leftPosition ;
 
+	}
+
+	public boolean getDirection(){
+		return leftToRight;
+	}
+
+
+	public Case getLeftPosition() {
+		return leftPosition;
 	}
 }
 
